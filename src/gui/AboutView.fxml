@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AboutViewController">
+   <children>
+      <Hyperlink fx:id="githubHyperlink" layoutX="274.0" layoutY="338.0" onAction="#onGithubHyperlinkAction" text="GITHUB" />
+      <Label layoutX="224.0" layoutY="97.0" text="Developed by Mikxingu" />
+   </children>
+</AnchorPane>

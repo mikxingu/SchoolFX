@@ -48,7 +48,7 @@ public class MainViewController implements Initializable{
 	@FXML
 	public void onClassesMenuAction() {
 		System.out.println("ABOUT BUTTON CLICCKED");
-		loadView("/gui/Class.fxml");
+		loadView("/gui/ClassList.fxml");
 
 	}
 	

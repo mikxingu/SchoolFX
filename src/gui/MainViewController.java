@@ -15,6 +15,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
+import model.services.ClassService;
 
 public class MainViewController implements Initializable{
 	
@@ -48,7 +49,7 @@ public class MainViewController implements Initializable{
 	@FXML
 	public void onClassesMenuAction() {
 		System.out.println("ABOUT BUTTON CLICCKED");
-		loadView("/gui/ClassList.fxml");
+		loadView2("/gui/ClassList.fxml");
 
 	}
 	
@@ -77,6 +78,30 @@ public class MainViewController implements Initializable{
 			
 			mainVbox.getChildren().add(mainMenu);
 			mainVbox.getChildren().addAll(newVBox.getChildren());
+			
+		} catch (IOException e){
+			Alerts.showAlert("IO Exception", "Error Loading View", e.getMessage(), AlertType.ERROR);
+		}
+	}
+	
+private  synchronized void loadView2(String absoluteViewName) {
+		
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteViewName));
+			VBox newVBox = loader.load();
+			Scene mainScene = Main.getMainScene();
+			VBox mainVbox = (VBox) ((ScrollPane) mainScene.getRoot()).getContent();
+			
+			Node mainMenu = mainVbox.getChildren().get(0);
+			mainVbox.getChildren().clear();
+			
+			mainVbox.getChildren().add(mainMenu);
+			mainVbox.getChildren().addAll(newVBox.getChildren());
+			
+			ClassListController controller = loader.getController();
+			
+			controller.setClassService(new ClassService());
+			controller.updateTableView();
 			
 		} catch (IOException e){
 			Alerts.showAlert("IO Exception", "Error Loading View", e.getMessage(), AlertType.ERROR);

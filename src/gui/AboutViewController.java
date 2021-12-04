@@ -14,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 
 public class AboutViewController implements Initializable{
 	
@@ -27,8 +28,12 @@ public class AboutViewController implements Initializable{
 	@FXML
 	private Label versionLabel;
 	
+	@FXML 
+	private ImageView githubImage;
+	
 	
 	public void onGithubHyperlinkAction() {
+		System.out.println("GITHUB ACtion Clicked");
 		try {
 			desktop.browse(URI.create("localhost:8080"));
 		} catch (Exception e) {

@@ -44,7 +44,6 @@ public class MainViewController implements Initializable{
 	public void onAboutMenuAction() {
 		System.out.println("ABOUT BUTTON CLICCKED");
 		loadView("/gui/AboutView.fxml", x -> {});
-		//TODO - IMPLEMENT A VIEW TO SHOW DEVELOPER INFORMATION.
 	}
 	
 	@FXML

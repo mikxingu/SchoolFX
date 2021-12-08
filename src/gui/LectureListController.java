@@ -23,31 +23,31 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.entities.Class;
-import model.services.ClassService;
+import model.entities.Lecture;
+import model.services.LectureService;
 
-public class ClassListController implements Initializable {
+public class LectureListController implements Initializable {
 	
-	private ClassService service;
-	
-	@FXML
-	private TableView<Class> classTableView;
+	private LectureService service;
 	
 	@FXML
-	private TableColumn<Class, Integer> classIdTableColumn;
+	private TableView<Lecture> classTableView;
 	
 	@FXML
-	private TableColumn<Class, String> classNameTableColumn;
+	private TableColumn<Lecture, Integer> classIdTableColumn;
+	
+	@FXML
+	private TableColumn<Lecture, String> classNameTableColumn;
 	
 	@FXML
 	private Button classNewButton;
 	
-	private ObservableList<Class> obsList;
+	private ObservableList<Lecture> obsList;
 	
 	@FXML
 	public void onClassNewButtonAction(ActionEvent event) {
 		Stage parentStage = Utils.getCurrentStage(event);
-		createDialogForm("/gui/ClassForm.fxml", parentStage);
+		createDialogForm("/gui/LectureForm.fxml", parentStage);
 	}
 	
 
@@ -67,7 +67,7 @@ public class ClassListController implements Initializable {
 		classTableView.prefHeightProperty().bind(stage.heightProperty());
 	}
 	
-	public void setClassService(ClassService service) {
+	public void setClassService(LectureService service) {
 		this.service = service;
 	}
 	
@@ -76,7 +76,7 @@ public class ClassListController implements Initializable {
 			throw new IllegalStateException("Service was null"); 
 		}
 		
-		List<Class> list = service.findAll();
+		List<Lecture> list = service.findAll();
 		
 		obsList = FXCollections.observableArrayList(list);
 		

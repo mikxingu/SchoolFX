@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="386.0" prefWidth="494.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ClassListController">
+<VBox prefHeight="386.0" prefWidth="494.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.LectureListController">
    <children>
-      <Label text="Classes">
+      <Label text="Institution Lectures">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -26,8 +26,8 @@
       </ToolBar>
       <TableView fx:id="classTableView" prefHeight="200.0" prefWidth="200.0">
         <columns>
-          <TableColumn fx:id="classIdTableColumn" prefWidth="75.0" text="Id" />
-          <TableColumn fx:id="classNameTableColumn" prefWidth="75.0" text="Name" />
+          <TableColumn fx:id="classIdTableColumn" prefWidth="53.0" text="Id" />
+          <TableColumn fx:id="classNameTableColumn" prefWidth="236.0" text="Name" />
         </columns>
       </TableView>
    </children>

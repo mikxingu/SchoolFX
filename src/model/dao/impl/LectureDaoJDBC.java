@@ -10,23 +10,23 @@ import java.util.List;
 
 import application.exceptions.DatabaseException;
 import db.DB;
-import model.dao.ClassDao;
-import model.entities.Class;
+import model.dao.LectureDao;
+import model.entities.Lecture;
 
-public class ClassDaoJDBC implements ClassDao {
+public class LectureDaoJDBC implements LectureDao {
 	
 	private Connection conn;
 	
-	public ClassDaoJDBC(Connection conn) {
+	public LectureDaoJDBC(Connection conn) {
 		this.conn = conn;
 	}
 
 	@Override
-	public void insert(Class obj) {
+	public void insert(Lecture obj) {
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
-					"INSERT INTO tb_classes " +
+					"INSERT INTO tb_lectures " +
 					"(Name) " +
 					"VALUES " +
 					"(?)",
@@ -55,11 +55,11 @@ public class ClassDaoJDBC implements ClassDao {
 	}
 
 	@Override
-	public void update(Class obj) {
+	public void update(Lecture obj) {
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
-					"UPDATE tb_classes " +
+					"UPDATE tb_lectures " +
 					"SET Name = ? " +
 					"WHERE Id = ?");
 			
@@ -80,7 +80,7 @@ public class ClassDaoJDBC implements ClassDao {
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
-					"DELETE FROM tb_classes WHERE Id = ?");
+					"DELETE FROM tb_lectures WHERE Id = ?");
 			st.setInt(1, id);
 			st.executeUpdate();
 		} catch (SQLException e) {
@@ -91,16 +91,16 @@ public class ClassDaoJDBC implements ClassDao {
 	}
 
 	@Override
-	public Class findById(Integer id) {
+	public Lecture findById(Integer id) {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement(
-					"SELECT * FROM tb_classes WHERE Id = ?");
+					"SELECT * FROM tb_lectures WHERE Id = ?");
 			st.setInt(1, id);
 			rs = st.executeQuery();
 			if (rs.next()) {
-				Class obj = new Class();
+				Lecture obj = new Lecture();
 				obj.setId(rs.getInt("Id"));
 				obj.setName(rs.getString("Name"));
 				return obj;
@@ -115,20 +115,20 @@ public class ClassDaoJDBC implements ClassDao {
 	}
 
 	@Override
-	public List<Class> findAll() {
+	public List<Lecture> findAll() {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		
 		try {
 			st = conn.prepareStatement(
-					"SELECT * FROM tb_classes ORDER BY Id");
+					"SELECT * FROM tb_lectures ORDER BY Id");
 			
 			rs = st.executeQuery();
 			
-			List<Class> list = new ArrayList<>();
+			List<Lecture> list = new ArrayList<>();
 			
 			while (rs.next()) {
-				Class obj = new Class();
+				Lecture obj = new Lecture();
 				obj.setId(rs.getInt("Id"));
 				obj.setName(rs.getString("Name"));
 				list.add(obj);

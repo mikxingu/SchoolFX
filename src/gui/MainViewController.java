@@ -16,7 +16,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
-import model.services.ClassService;
+import model.services.LectureService;
 
 public class MainViewController implements Initializable{
 	
@@ -49,8 +49,8 @@ public class MainViewController implements Initializable{
 	@FXML
 	public void onClassesMenuAction() {
 		System.out.println("ABOUT BUTTON CLICCKED");
-		loadView("/gui/ClassList.fxml", (ClassListController controller) -> {
-			controller.setClassService(new ClassService());
+		loadView("/gui/LectureList.fxml", (LectureListController controller) -> {
+			controller.setClassService(new LectureService());
 			controller.updateTableView();
 		});
 

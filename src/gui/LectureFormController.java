@@ -9,8 +9,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import model.entities.Lecture;
 
-public class ClassFormController implements Initializable{
+public class LectureFormController implements Initializable{
+	
+	private Lecture entity;
 
 	@FXML
 	private TextField idField;
@@ -26,6 +29,10 @@ public class ClassFormController implements Initializable{
 	
 	@FXML
 	private Button cancelButton;
+	
+	public void setClass(Lecture entity) {
+		this.entity = entity;
+	}
 	
 	@FXML
 	public void onSaveButtonAction() {

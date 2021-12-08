@@ -1,12 +1,12 @@
 package model.dao;
 
 import db.DB;
-import model.dao.impl.ClassDaoJDBC;
+import model.dao.impl.LectureDaoJDBC;
 
 public class DaoFactory {
 	
-	public static ClassDao createClassDao() {
-		return new ClassDaoJDBC(DB.getConnection());
+	public static LectureDao createLectureDao() {
+		return new LectureDaoJDBC(DB.getConnection());
 	}
 	
 //	public static StudentDao createStudentDao() {

@@ -2,18 +2,18 @@ package model.entities;
 
 import java.io.Serializable;
 
-public class Class implements Serializable {
+public class Lecture implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
 	private String name;
 	
-	public Class() {
+	public Lecture() {
 		
 	}
 	
-	public Class(Integer id, String name) {
+	public Lecture(Integer id, String name) {
 		this.id = id;
 		this.name = name;
 	}

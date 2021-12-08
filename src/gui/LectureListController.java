@@ -91,7 +91,9 @@ public class LectureListController implements Initializable {
 			
 			LectureFormController controller = loader.getController();
 			controller.setLecture(entity);
+			controller.setLectureService(new LectureService());
 			controller.updateFormData();
+			
 			
 			Stage dialogStage = new Stage();
 			

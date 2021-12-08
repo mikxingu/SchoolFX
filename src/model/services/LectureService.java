@@ -13,7 +13,15 @@ public class LectureService {
 	public List<Lecture> findAll() {
 		
 		return dao.findAll();
+	}
+	
+	public void saveOrUpdate (Lecture obj) {
+		if (obj.getId() == null) {
+			dao.insert(obj);
+		}
 		
-		
+		else {
+			dao.update(obj);
+		}
 	}
 }

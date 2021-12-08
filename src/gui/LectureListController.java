@@ -80,7 +80,7 @@ public class LectureListController implements Initializable , DataChangeListener
 		lectureTableView.prefHeightProperty().bind(stage.heightProperty());
 	}
 	
-	public void setClassService(LectureService service) {
+	public void setLectureService(LectureService service) {
 		this.service = service;
 	}
 	

@@ -17,6 +17,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import model.services.LectureService;
+import model.services.StudentService;
 
 public class MainViewController implements Initializable{
 	
@@ -26,9 +27,6 @@ public class MainViewController implements Initializable{
 	// MENU ITEMS
 	@FXML
 	private MenuItem studentMenuItem;
-	
-	@FXML
-	private MenuItem teacherMenuItem;
 	
 	@FXML
 	private MenuItem aboutMenuItem;
@@ -50,12 +48,19 @@ public class MainViewController implements Initializable{
 	public void onLecturesMenuAction() {
 		System.out.println("LECTURES BUTTON CLICCKED");
 		loadView("/gui/LectureList.fxml", (LectureListController controller) -> {
-			controller.setClassService(new LectureService());
+			controller.setLectureService(new LectureService());
 			controller.updateTableView();
 		});
-
 	}
 	
+	@FXML
+	public void onStudentsMenuAction() {
+		System.out.println("STUDENTS BUTTON CLICCKED");
+		loadView("/gui/StudentList.fxml", (StudentListController controller) -> {
+			controller.setStudentService(new StudentService());
+			controller.updateTableView();
+		});
+	}
 	
 	@FXML
 	public void onQuitMenuAction() {

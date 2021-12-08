@@ -31,23 +31,24 @@ public class LectureListController implements Initializable {
 	private LectureService service;
 	
 	@FXML
-	private TableView<Lecture> classTableView;
+	private TableView<Lecture> lectureTableView;
 	
 	@FXML
-	private TableColumn<Lecture, Integer> classIdTableColumn;
+	private TableColumn<Lecture, Integer> lectureIdTableColumn;
 	
 	@FXML
-	private TableColumn<Lecture, String> classNameTableColumn;
+	private TableColumn<Lecture, String> lectureNameTableColumn;
 	
 	@FXML
-	private Button classNewButton;
+	private Button lectureNewButton;
 	
 	private ObservableList<Lecture> obsList;
 	
 	@FXML
-	public void onClassNewButtonAction(ActionEvent event) {
+	public void onNewLectureButtonAction(ActionEvent event) {
 		Stage parentStage = Utils.getCurrentStage(event);
-		createDialogForm("/gui/LectureForm.fxml", parentStage);
+		Lecture obj = new Lecture();
+		createDialogForm(obj, "/gui/LectureForm.fxml", parentStage);
 	}
 	
 
@@ -58,13 +59,13 @@ public class LectureListController implements Initializable {
 
 
 	private void initializeNodes() {
-		classIdTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-		classNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+		lectureIdTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+		lectureNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 		
 		Stage stage = (Stage) Main.getMainScene().getWindow();
 		
 		//PEGA UMA REFERENCIA DO PALCO ATUAL, E BINDA O HEIGHT DA TABLEVIEW COM O HEIGHT DO STAGE
-		classTableView.prefHeightProperty().bind(stage.heightProperty());
+		lectureTableView.prefHeightProperty().bind(stage.heightProperty());
 	}
 	
 	public void setClassService(LectureService service) {
@@ -80,13 +81,17 @@ public class LectureListController implements Initializable {
 		
 		obsList = FXCollections.observableArrayList(list);
 		
-		classTableView.setItems(obsList);
+		lectureTableView.setItems(obsList);
 	}
 	
-	private void createDialogForm(String absoluteViewName, Stage parentStage) {
+	private void createDialogForm(Lecture entity, String absoluteViewName, Stage parentStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteViewName));
 			Pane pane = loader.load();
+			
+			LectureFormController controller = loader.getController();
+			controller.setLecture(entity);
+			controller.updateFormData();
 			
 			Stage dialogStage = new Stage();
 			

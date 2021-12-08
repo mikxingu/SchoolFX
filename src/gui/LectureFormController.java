@@ -30,7 +30,7 @@ public class LectureFormController implements Initializable{
 	@FXML
 	private Button cancelButton;
 	
-	public void setClass(Lecture entity) {
+	public void setLecture(Lecture entity) {
 		this.entity = entity;
 	}
 	
@@ -50,8 +50,17 @@ public class LectureFormController implements Initializable{
 	}
 	
 	private void initializeNodes() {
-		Constraints.setTextFieldInteger(idField);
+//		Constraints.setTextFieldInteger(idField); TODO - CONSERTAR BUG AO CLICAR EM NEW LECTURE
 		Constraints.setTextFieldMaxLength(nameField, 50);
+	}
+	
+	public void updateFormData() {
+		if(entity == null) {
+			throw new IllegalStateException("Entity cannot be null!");
+		}
+		
+		idField.setText(String.valueOf(entity.getId()));
+		nameField.setText(entity.getName());
 	}
 
 }

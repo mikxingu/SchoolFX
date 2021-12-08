@@ -47,8 +47,8 @@ public class MainViewController implements Initializable{
 	}
 	
 	@FXML
-	public void onClassesMenuAction() {
-		System.out.println("ABOUT BUTTON CLICCKED");
+	public void onLecturesMenuAction() {
+		System.out.println("LECTURES BUTTON CLICCKED");
 		loadView("/gui/LectureList.fxml", (LectureListController controller) -> {
 			controller.setClassService(new LectureService());
 			controller.updateTableView();

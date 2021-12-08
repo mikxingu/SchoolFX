@@ -11,23 +11,26 @@
 
 <VBox prefHeight="386.0" prefWidth="494.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.LectureListController">
    <children>
-      <Label text="Institution Lectures">
+      <Label text="Lectures">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
+         <padding>
+            <Insets left="10.0" top="5.0" />
+         </padding>
       </Label>
       <ToolBar prefHeight="40.0" prefWidth="200.0">
         <items>
-          <Button fx:id="classNewButton" mnemonicParsing="false" onAction="#onClassNewButtonAction" text="New" />
+          <Button fx:id="lectureNewButton" mnemonicParsing="false" onAction="#onNewLectureButtonAction" text="New" />
         </items>
       </ToolBar>
-      <TableView fx:id="classTableView" prefHeight="200.0" prefWidth="200.0">
+      <TableView fx:id="lectureTableView" prefHeight="200.0" prefWidth="200.0">
         <columns>
-          <TableColumn fx:id="classIdTableColumn" prefWidth="53.0" text="Id" />
-          <TableColumn fx:id="classNameTableColumn" prefWidth="236.0" text="Name" />
+          <TableColumn fx:id="lectureIdTableColumn" prefWidth="53.0" text="Id" />
+          <TableColumn fx:id="lectureNameTableColumn" prefWidth="236.0" text="Name" />
         </columns>
       </TableView>
    </children>

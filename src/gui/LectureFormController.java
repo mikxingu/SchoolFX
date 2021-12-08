@@ -1,9 +1,12 @@
 package gui;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import application.exceptions.DatabaseException;
+import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Constraints;
 import gui.util.Utils;
@@ -22,6 +25,8 @@ public class LectureFormController implements Initializable{
 	private Lecture entity;
 	
 	private LectureService service;
+	
+	private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
 
 	@FXML
 	private TextField idField;
@@ -37,6 +42,10 @@ public class LectureFormController implements Initializable{
 	
 	@FXML
 	private Button cancelButton;
+	
+	public void subscribeDataChangeListener(DataChangeListener listener) {
+		dataChangeListeners.add(listener);
+	}
 	
 	public void setLecture(Lecture entity) {
 		this.entity = entity;
@@ -59,11 +68,18 @@ public class LectureFormController implements Initializable{
 			entity = getFormData();
 			service.saveOrUpdate(entity);
 			Utils.getCurrentStage(event).close();
+			notifyDataChangeListeners();
 		} catch (DatabaseException e) {
 			Alerts.showAlert("Error saving object", null, e.getMessage(), AlertType.ERROR);
 		}
 	}
 	
+	private void notifyDataChangeListeners() {
+		for (DataChangeListener listener : dataChangeListeners) {
+			listener.onDataChanged();
+		}
+	}
+
 	private Lecture getFormData() {
 		Lecture obj = new Lecture();
 		obj.setId(Utils.tryParseToInt(idField.getText()));

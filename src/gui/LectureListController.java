@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
+import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
 import javafx.collections.FXCollections;
@@ -26,7 +27,7 @@ import javafx.stage.Stage;
 import model.entities.Lecture;
 import model.services.LectureService;
 
-public class LectureListController implements Initializable {
+public class LectureListController implements Initializable , DataChangeListener{
 	
 	private LectureService service;
 	
@@ -92,6 +93,9 @@ public class LectureListController implements Initializable {
 			LectureFormController controller = loader.getController();
 			controller.setLecture(entity);
 			controller.setLectureService(new LectureService());
+			//SE INSCREVE PARA RECEBER OS EVENTOS DO FORM CONTROLLER
+			controller.subscribeDataChangeListener(this);
+			
 			controller.updateFormData();
 			
 			
@@ -109,4 +113,9 @@ public class LectureListController implements Initializable {
 		}
 	}
 
+
+	@Override //RECEBE ESSE EVENTO SEMPRE QUE O FORM DISPARAR UM EVENTO
+	public void onDataChanged() {
+		updateTableView();	
+	}
 }

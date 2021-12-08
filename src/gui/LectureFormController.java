@@ -3,9 +3,12 @@ package gui;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import application.exceptions.DatabaseException;
+import application.exceptions.ValidationException;
 import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Constraints;
@@ -69,7 +72,11 @@ public class LectureFormController implements Initializable{
 			service.saveOrUpdate(entity);
 			Utils.getCurrentStage(event).close();
 			notifyDataChangeListeners();
-		} catch (DatabaseException e) {
+		}
+		catch (ValidationException e) {
+			SetErrorMessages(e.getErrors());
+		}
+		catch (DatabaseException e) {
 			Alerts.showAlert("Error saving object", null, e.getMessage(), AlertType.ERROR);
 		}
 	}
@@ -82,8 +89,20 @@ public class LectureFormController implements Initializable{
 
 	private Lecture getFormData() {
 		Lecture obj = new Lecture();
+		
+		ValidationException exception = new ValidationException("Validation Error");
+		
 		obj.setId(Utils.tryParseToInt(idField.getText()));
+		
+		if(nameField.getText() == null || nameField.getText().trim().equals("")) {
+			exception.addError("name", "Field can't be empty!");
+		}
+		
 		obj.setName(nameField.getText());
+		
+		if (exception.getErrors().size() > 0) {
+			throw exception;
+		}
 		
 		return obj;
 	}
@@ -112,4 +131,11 @@ public class LectureFormController implements Initializable{
 		nameField.setText(entity.getName());
 	}
 
+	private void SetErrorMessages(Map<String, String> errors) {
+		Set<String> fields = errors.keySet();
+		
+		if (fields.contains("name")) {
+			errorLabel.setText(errors.get("name"));
+		}
+	}
 }

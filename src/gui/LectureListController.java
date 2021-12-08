@@ -3,9 +3,11 @@ package gui;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import application.Main;
+import application.exceptions.DatabaseIntegrityException;
 import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
@@ -19,6 +21,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -44,6 +47,9 @@ public class LectureListController implements Initializable , DataChangeListener
 	
 	@FXML
 	private TableColumn<Lecture, Lecture> lectureEditTableColumn;
+	
+	@FXML
+	private TableColumn<Lecture, Lecture> lectureDeleteTableColumn;
 	
 	@FXML
 	private Button lectureNewButton;
@@ -90,6 +96,7 @@ public class LectureListController implements Initializable , DataChangeListener
 		lectureTableView.setItems(obsList);
 		
 		initEditButtons();
+		initDeleteButtons();
 	}
 	
 	private void createDialogForm(Lecture entity, String absoluteViewName, Stage parentStage) {
@@ -146,5 +153,43 @@ public class LectureListController implements Initializable , DataChangeListener
 								obj, "/gui/LectureForm.fxml", Utils.getCurrentStage(event)));
 			}
 		});
+	}
+	
+	private void initDeleteButtons() {
+		lectureDeleteTableColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+		lectureDeleteTableColumn.setCellFactory(param -> new TableCell<Lecture, Lecture>(){
+			private final Button button = new Button("Delete");
+			
+			@Override
+			protected void updateItem(Lecture obj, boolean empty) {
+				super.updateItem(obj, empty);
+				
+				if (obj == null) {
+					setGraphic(null);
+					return;
+				}
+				
+				setGraphic(button);
+				button.setOnAction(event -> removeEntity(obj));
+			}
+		});
+	}
+	
+	private void removeEntity(Lecture obj) {
+		Optional<ButtonType> result = Alerts.showConfirmation("Deletion Confirmation", "Are you sure you want delete this entity?");
+		if (result.get() == ButtonType.OK) {
+			if (service == null) {
+				throw new IllegalStateException("Service cannot be null!");
+			}
+			
+			try {
+				service.remove(obj);
+				updateTableView();
+			} catch (DatabaseIntegrityException e) {
+				Alerts.showAlert("Error removing entity", null, e.getMessage(), AlertType.ERROR);
+			}
+			
+		}
+		
 	}
 }

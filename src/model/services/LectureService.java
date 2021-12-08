@@ -24,4 +24,8 @@ public class LectureService {
 			dao.update(obj);
 		}
 	}
+	
+	public void remove(Lecture obj) {
+		dao.deleteById(obj.getId());
+	}
 }

@@ -32,6 +32,7 @@
           <TableColumn fx:id="lectureIdTableColumn" prefWidth="65.0" text="Id" />
           <TableColumn fx:id="lectureNameTableColumn" prefWidth="328.0" text="Name" />
             <TableColumn fx:id="lectureEditTableColumn" prefWidth="76.0" />
+            <TableColumn fx:id="lectureDeleteTableColumn" prefWidth="75.0" />
         </columns>
       </TableView>
    </children>

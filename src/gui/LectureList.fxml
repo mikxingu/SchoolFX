@@ -29,8 +29,9 @@
       </ToolBar>
       <TableView fx:id="lectureTableView" prefHeight="200.0" prefWidth="200.0">
         <columns>
-          <TableColumn fx:id="lectureIdTableColumn" prefWidth="53.0" text="Id" />
-          <TableColumn fx:id="lectureNameTableColumn" prefWidth="236.0" text="Name" />
+          <TableColumn fx:id="lectureIdTableColumn" prefWidth="65.0" text="Id" />
+          <TableColumn fx:id="lectureNameTableColumn" prefWidth="328.0" text="Name" />
+            <TableColumn fx:id="lectureEditTableColumn" prefWidth="76.0" />
         </columns>
       </TableView>
    </children>

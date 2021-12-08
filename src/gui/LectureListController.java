@@ -9,6 +9,7 @@ import application.Main;
 import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,6 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -39,6 +41,9 @@ public class LectureListController implements Initializable , DataChangeListener
 	
 	@FXML
 	private TableColumn<Lecture, String> lectureNameTableColumn;
+	
+	@FXML
+	private TableColumn<Lecture, Lecture> lectureEditTableColumn;
 	
 	@FXML
 	private Button lectureNewButton;
@@ -83,6 +88,8 @@ public class LectureListController implements Initializable , DataChangeListener
 		obsList = FXCollections.observableArrayList(list);
 		
 		lectureTableView.setItems(obsList);
+		
+		initEditButtons();
 	}
 	
 	private void createDialogForm(Lecture entity, String absoluteViewName, Stage parentStage) {
@@ -117,5 +124,27 @@ public class LectureListController implements Initializable , DataChangeListener
 	@Override //RECEBE ESSE EVENTO SEMPRE QUE O FORM DISPARAR UM EVENTO
 	public void onDataChanged() {
 		updateTableView();	
+	}
+	
+	private void initEditButtons() {
+		lectureEditTableColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+		lectureEditTableColumn.setCellFactory(param -> new TableCell<Lecture, Lecture>(){
+			private final Button button = new Button("Edit");
+			
+			@Override
+			protected void updateItem(Lecture obj, boolean empty) {
+				super.updateItem(obj, empty);
+				
+				if (obj == null) {
+					setGraphic(null);
+					return;
+				}
+				
+				setGraphic(button);
+				button.setOnAction(
+						event -> createDialogForm(
+								obj, "/gui/LectureForm.fxml", Utils.getCurrentStage(event)));
+			}
+		});
 	}
 }

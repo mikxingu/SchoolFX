@@ -6,7 +6,7 @@ public class Constraints {
 	
 	public static void setTextFieldInteger(TextField text) {
 		text.textProperty().addListener((obs, oldValue, newValue) -> {
-			if (newValue != null && !newValue.matches("\\d")) {
+			if (newValue != null && !newValue.matches("\\d*")) {
 				text.setText(oldValue);
 			}
 		});

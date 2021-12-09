@@ -118,7 +118,7 @@ public class LectureFormController implements Initializable{
 	}
 	
 	private void initializeNodes() {
-//		Constraints.setTextFieldInteger(idField); TODO - CONSERTAR BUG AO CLICAR EM NEW LECTURE
+		Constraints.setTextFieldInteger(idField); //TODO - CONSERTAR BUG AO CLICAR EM NEW LECTURE
 		Constraints.setTextFieldMaxLength(nameField, 50);
 	}
 	

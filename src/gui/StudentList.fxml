@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="386.0" prefWidth="494.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.studentListController">
+<VBox prefHeight="386.0" prefWidth="494.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.StudentListController">
    <children>
       <Label text="Students">
          <font>
@@ -24,15 +24,15 @@
       </Label>
       <ToolBar prefHeight="40.0" prefWidth="200.0">
         <items>
-          <Button fx:id="studentNewButton" mnemonicParsing="false" onAction="#onNewstudentButtonAction" text="New" />
+          <Button fx:id="StudentNewButton" mnemonicParsing="false" onAction="#onNewStudentButtonAction" text="New" />
         </items>
       </ToolBar>
-      <TableView fx:id="studentTableView" prefHeight="200.0" prefWidth="200.0">
+      <TableView fx:id="StudentTableView" prefHeight="200.0" prefWidth="200.0">
         <columns>
-          <TableColumn fx:id="studentIdTableColumn" prefWidth="65.0" text="Id" />
-          <TableColumn fx:id="studentNameTableColumn" prefWidth="328.0" text="Name" />
-            <TableColumn fx:id="studentEditTableColumn" prefWidth="76.0" />
-            <TableColumn fx:id="studentDeleteTableColumn" prefWidth="75.0" />
+          <TableColumn fx:id="StudentIdTableColumn" prefWidth="65.0" text="Id" />
+          <TableColumn fx:id="StudentNameTableColumn" prefWidth="328.0" text="Name" />
+            <TableColumn fx:id="StudentEditTableColumn" prefWidth="76.0" />
+            <TableColumn fx:id="StudentDeleteTableColumn" prefWidth="75.0" />
         </columns>
       </TableView>
    </children>

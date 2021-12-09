@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
 import application.Main;
+import application.exceptions.DatabaseException;
 import gui.util.Alerts;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -93,6 +94,8 @@ public class MainViewController implements Initializable{
 			initializingAction.accept(controller);
 		} catch (IOException e){
 			Alerts.showAlert("IO Exception", "Error Loading View", e.getMessage(), AlertType.ERROR);
+		} catch (DatabaseException e) {
+			Alerts.showAlert("Database Exception", "Error connecting to database", "Could not connect to the database.", AlertType.ERROR);
 		}
 	}
 

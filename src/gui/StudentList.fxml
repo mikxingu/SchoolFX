@@ -24,15 +24,16 @@
       </Label>
       <ToolBar prefHeight="40.0" prefWidth="200.0">
         <items>
-          <Button fx:id="StudentNewButton" mnemonicParsing="false" onAction="#onNewStudentButtonAction" text="New" />
+          <Button fx:id="studentNewButton" mnemonicParsing="false" onAction="#onNewStudentButtonAction" text="New" />
         </items>
       </ToolBar>
-      <TableView fx:id="StudentTableView" prefHeight="200.0" prefWidth="200.0">
+      <TableView fx:id="studentTableView" prefHeight="200.0" prefWidth="200.0">
         <columns>
-          <TableColumn fx:id="StudentIdTableColumn" prefWidth="65.0" text="Id" />
-          <TableColumn fx:id="StudentNameTableColumn" prefWidth="328.0" text="Name" />
-            <TableColumn fx:id="StudentEditTableColumn" prefWidth="76.0" />
-            <TableColumn fx:id="StudentDeleteTableColumn" prefWidth="75.0" />
+          <TableColumn fx:id="studentIdTableColumn" prefWidth="39.0" text="Id" />
+          <TableColumn fx:id="studentNameTableColumn" prefWidth="128.0" text="Name" />
+            <TableColumn fx:id="studentEmailTableColumn" prefWidth="187.0" text="Email" />
+            <TableColumn fx:id="studentEditTableColumn" prefWidth="64.0" />
+            <TableColumn fx:id="studentDeleteTableColumn" prefWidth="74.0" />
         </columns>
       </TableView>
    </children>

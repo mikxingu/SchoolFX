@@ -103,6 +103,7 @@ public class StudentDaoJDBC implements StudentDao {
 				Student obj = new Student();
 				obj.setId(rs.getInt("Id"));
 				obj.setName(rs.getString("Name"));
+				obj.setEmail(rs.getString("Email"));
 				return obj;
 			}
 			return null;
@@ -131,6 +132,7 @@ public class StudentDaoJDBC implements StudentDao {
 				Student obj = new Student();
 				obj.setId(rs.getInt("Id"));
 				obj.setName(rs.getString("Name"));
+				obj.setEmail(rs.getString("Email"));
 				list.add(obj);
 			}
 			return list;

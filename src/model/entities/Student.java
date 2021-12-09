@@ -10,7 +10,6 @@ public class Student implements Serializable{
 	private Integer id;
 	private String name;
 	private String email;
-	private List<Lecture> lectures;
 	
 	public Student() {
 		
@@ -50,15 +49,5 @@ public class Student implements Serializable{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	public List<Lecture> getLectures() {
-		return lectures;
-	}
-
-	public void setLectures(List<Lecture> lectures) {
-		this.lectures = lectures;
-	}
-	
-	
 	
 }

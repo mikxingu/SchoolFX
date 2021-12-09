@@ -32,22 +32,25 @@ public class StudentListController implements Initializable , DataChangeListener
 	private StudentService service;
 	
 	@FXML
-	private TableView<Student> StudentTableView;
+	private TableView<Student> studentTableView;
 	
 	@FXML
-	private TableColumn<Student, Integer> StudentIdTableColumn;
+	private TableColumn<Student, Integer> studentIdTableColumn;
 	
 	@FXML
-	private TableColumn<Student, String> StudentNameTableColumn;
+	private TableColumn<Student, String> studentNameTableColumn;
 	
 	@FXML
-	private TableColumn<Student, Student> StudentEditTableColumn;
+	private TableColumn<Student, String>  studentEmailTableColumn;
 	
 	@FXML
-	private TableColumn<Student, Student> StudentDeleteTableColumn;
+	private TableColumn<Student, Student> studentEditTableColumn;
 	
 	@FXML
-	private Button StudentNewButton;
+	private TableColumn<Student, Student> studentDeleteTableColumn;
+	
+	@FXML
+	private Button studentNewButton;
 	
 	private ObservableList<Student> obsList;
 	
@@ -66,13 +69,13 @@ public class StudentListController implements Initializable , DataChangeListener
 
 
 	private void initializeNodes() {
-		StudentIdTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-		StudentNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-		
+		studentIdTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+		studentNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+		studentEmailTableColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
 		Stage stage = (Stage) Main.getMainScene().getWindow();
 		
 		//PEGA UMA REFERENCIA DO PALCO ATUAL, E BINDA O HEIGHT DA TABLEVIEW COM O HEIGHT DO STAGE
-		StudentTableView.prefHeightProperty().bind(stage.heightProperty());
+		studentTableView.prefHeightProperty().bind(stage.heightProperty());
 	}
 	
 	public void setStudentService(StudentService service) {
@@ -88,7 +91,7 @@ public class StudentListController implements Initializable , DataChangeListener
 		
 		obsList = FXCollections.observableArrayList(list);
 		
-		StudentTableView.setItems(obsList);
+		studentTableView.setItems(obsList);
 		
 		initEditButtons();
 		initDeleteButtons();
@@ -129,8 +132,8 @@ public class StudentListController implements Initializable , DataChangeListener
 	}
 	
 	private void initEditButtons() {
-		StudentEditTableColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-		StudentEditTableColumn.setCellFactory(param -> new TableCell<Student, Student>(){
+		studentEditTableColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+		studentEditTableColumn.setCellFactory(param -> new TableCell<Student, Student>(){
 			private final Button button = new Button("Edit");
 			
 			@Override
@@ -151,8 +154,8 @@ public class StudentListController implements Initializable , DataChangeListener
 	}
 	
 	private void initDeleteButtons() {
-		StudentDeleteTableColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-		StudentDeleteTableColumn.setCellFactory(param -> new TableCell<Student, Student>(){
+		studentDeleteTableColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+		studentDeleteTableColumn.setCellFactory(param -> new TableCell<Student, Student>(){
 			private final Button button = new Button("Delete");
 			
 			@Override

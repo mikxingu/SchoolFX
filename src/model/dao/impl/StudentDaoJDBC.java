@@ -27,12 +27,13 @@ public class StudentDaoJDBC implements StudentDao {
 		try {
 			st = conn.prepareStatement(
 					"INSERT INTO tb_students " +
-					"(Name) " +
+					"(Name, Email) " +
 					"VALUES " +
-					"(?)",
+					"(?, ?)",
 					Statement.RETURN_GENERATED_KEYS);
 			
 			st.setString(1, obj.getName());
+			st.setString(2, obj.getEmail());
 			
 			int rowsAffected = st.executeUpdate();
 			
@@ -60,11 +61,12 @@ public class StudentDaoJDBC implements StudentDao {
 		try {
 			st = conn.prepareStatement(
 					"UPDATE tb_students " +
-					"SET Name = ? " +
+					"SET Name = ?, Email = ? " +
 					"WHERE Id = ?");
 			
 			st.setString(1, obj.getName());
-			st.setInt(2, obj.getId());
+			st.setString(2, obj.getEmail());
+			st.setInt(3, obj.getId());
 			
 			st.executeUpdate();
 		} catch (SQLException e) {

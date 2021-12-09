@@ -38,7 +38,13 @@ public class StudentFormController implements Initializable{
 	private TextField nameField;
 	
 	@FXML
-	private Label errorLabel;
+	private TextField emailField;
+	
+	@FXML
+	private Label errorLabelName;
+	
+	@FXML
+	private Label errorLabelEmail;
 	
 	@FXML
 	private Button saveButton;
@@ -74,7 +80,7 @@ public class StudentFormController implements Initializable{
 			notifyDataChangeListeners();
 		}
 		catch (ValidationException e) {
-			SetErrorMessages(e.getErrors());
+			setErrorMessages(e.getErrors());
 		}
 		catch (DatabaseException e) {
 			Alerts.showAlert("Error saving object", null, e.getMessage(), AlertType.ERROR);
@@ -100,6 +106,12 @@ public class StudentFormController implements Initializable{
 		
 		obj.setName(nameField.getText());
 		
+		if (emailField.getText() == null || emailField.getText().trim().equals("")) {
+			exception.addError("email", "Field can't be empty!");
+		}
+		
+		obj.setEmail(emailField.getText());
+		
 		if (exception.getErrors().size() > 0) {
 			throw exception;
 		}
@@ -120,6 +132,7 @@ public class StudentFormController implements Initializable{
 	private void initializeNodes() {
 		Constraints.setTextFieldInteger(idField);
 		Constraints.setTextFieldMaxLength(nameField, 50);
+		Constraints.setTextFieldMaxLength(emailField, 100);
 	}
 	
 	public void updateFormData() {
@@ -129,13 +142,14 @@ public class StudentFormController implements Initializable{
 		
 		idField.setText(String.valueOf(entity.getId()));
 		nameField.setText(entity.getName());
+		emailField.setText(entity.getEmail());
 	}
 
-	private void SetErrorMessages(Map<String, String> errors) {
+	private void setErrorMessages(Map<String, String> errors) {
 		Set<String> fields = errors.keySet();
 		
 		if (fields.contains("name")) {
-			errorLabel.setText(errors.get("name"));
+			errorLabelName.setText(errors.get("name"));
 		}
 	}
 }

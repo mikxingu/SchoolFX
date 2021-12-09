@@ -20,14 +20,14 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import model.entities.Lecture;
-import model.services.LectureService;
+import model.entities.Student;
+import model.services.StudentService;
 
-public class LectureFormController implements Initializable{
+public class StudentFormController implements Initializable{
 	
-	private Lecture entity;
+	private Student entity;
 	
-	private LectureService service;
+	private StudentService service;
 	
 	private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
 
@@ -50,11 +50,11 @@ public class LectureFormController implements Initializable{
 		dataChangeListeners.add(listener);
 	}
 	
-	public void setLecture(Lecture entity) {
+	public void setStudent(Student entity) {
 		this.entity = entity;
 	}
 	
-	public void setLectureService (LectureService service) {
+	public void setStudentService (StudentService service) {
 		this.service = service;
 	}
 	
@@ -87,8 +87,8 @@ public class LectureFormController implements Initializable{
 		}
 	}
 
-	private Lecture getFormData() {
-		Lecture obj = new Lecture();
+	private Student getFormData() {
+		Student obj = new Student();
 		
 		ValidationException exception = new ValidationException("Validation Error");
 		

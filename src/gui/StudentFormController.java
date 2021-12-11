@@ -13,14 +13,22 @@ import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Constraints;
 import gui.util.Utils;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.util.Callback;
+import model.entities.Lecture;
 import model.entities.Student;
+import model.services.LectureService;
 import model.services.StudentService;
 
 public class StudentFormController implements Initializable{
@@ -28,6 +36,8 @@ public class StudentFormController implements Initializable{
 	private Student entity;
 	
 	private StudentService service;
+	
+	private LectureService lectureService;
 	
 	private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
 
@@ -41,6 +51,9 @@ public class StudentFormController implements Initializable{
 	private TextField emailField;
 	
 	@FXML
+	private ComboBox<Lecture> lecturesCombobox;
+	
+	@FXML
 	private Label errorLabelName;
 	
 	@FXML
@@ -52,6 +65,8 @@ public class StudentFormController implements Initializable{
 	@FXML
 	private Button cancelButton;
 	
+	private ObservableList<Lecture> lectureObsList;
+	
 	public void subscribeDataChangeListener(DataChangeListener listener) {
 		dataChangeListeners.add(listener);
 	}
@@ -60,8 +75,9 @@ public class StudentFormController implements Initializable{
 		this.entity = entity;
 	}
 	
-	public void setStudentService (StudentService service) {
-		this.service = service;
+	public void setServices (StudentService studentService, LectureService lectureService) {
+		this.service = studentService;
+		this.lectureService = lectureService;
 	}
 	
 	@FXML
@@ -112,7 +128,7 @@ public class StudentFormController implements Initializable{
 		
 		obj.setEmail(emailField.getText());
 		
-		if (exception.getErrors().size() > 0) {
+		if (exception.getErrors().size() > 0) { 
 			throw exception;
 		}
 		
@@ -133,6 +149,8 @@ public class StudentFormController implements Initializable{
 		Constraints.setTextFieldInteger(idField);
 		Constraints.setTextFieldMaxLength(nameField, 50);
 		Constraints.setTextFieldMaxLength(emailField, 100);
+		
+		initializeLectureComboBox();
 	}
 	
 	public void updateFormData() {
@@ -143,13 +161,38 @@ public class StudentFormController implements Initializable{
 		idField.setText(String.valueOf(entity.getId()));
 		nameField.setText(entity.getName());
 		emailField.setText(entity.getEmail());
+		
+		//TODO - IMPLEMENTAR MANEIRA DE SALVAR DEPARTAMENTOS VINCULADOS AO ALUNO,
+		// e trazer essa info pra comboBox
+//		lecturesCombobox.setValue(entity.getName());
+	}
+	
+	public void loadAssociatedObjects() {
+		if (lectureService == null) {
+			throw new IllegalStateException("Lecture Service cannot be null!");
+		}
+		List<Lecture> list = lectureService.findAll();
+		lectureObsList = FXCollections.observableArrayList(list);
+		lecturesCombobox.setItems(lectureObsList);
 	}
 
 	private void setErrorMessages(Map<String, String> errors) {
 		Set<String> fields = errors.keySet();
 		
-		if (fields.contains("name")) {
-			errorLabelName.setText(errors.get("name"));
-		}
+		errorLabelName.setText(fields.contains("name") ? errors.get("name") : "");
+
+		errorLabelEmail.setText(fields.contains("email") ? errors.get("email") : "");
+	}
+	
+	private void initializeLectureComboBox() {
+		Callback<ListView<Lecture>, ListCell<Lecture>> factory = lv -> new ListCell<Lecture>() {
+			@Override
+			protected void updateItem(Lecture item, boolean empty) {
+				super.updateItem(item, empty);
+				setText(empty ? "" : item.getName());
+			}
+		};
+		lecturesCombobox.setCellFactory(factory);
+		lecturesCombobox.setButtonCell(factory.call(null));
 	}
 }

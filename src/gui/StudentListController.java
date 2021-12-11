@@ -30,6 +30,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.entities.Student;
+import model.services.LectureService;
 import model.services.StudentService;
 
 public class StudentListController implements Initializable , DataChangeListener{
@@ -109,7 +110,8 @@ public class StudentListController implements Initializable , DataChangeListener
 			
 			StudentFormController controller = loader.getController();
 			controller.setStudent(entity);
-			controller.setStudentService(new StudentService());
+			controller.setServices(new StudentService(), new LectureService());
+			controller.loadAssociatedObjects();
 			//SE INSCREVE PARA RECEBER OS EVENTOS DO FORM CONTROLLER
 			controller.subscribeDataChangeListener(this);
 			
@@ -126,6 +128,7 @@ public class StudentListController implements Initializable , DataChangeListener
 			dialogStage.showAndWait();
 			
 		} catch (IOException e) {
+			e.printStackTrace();
 			Alerts.showAlert("IO Exception", "Error loading view.", e.getMessage(), AlertType.ERROR);
 		}
 	}
